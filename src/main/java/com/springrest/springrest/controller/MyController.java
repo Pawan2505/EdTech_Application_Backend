@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springrest.springrest.entities.Course;
+import com.springrest.springrest.entities.Login;
 import com.springrest.springrest.services.CourseService;
+import com.springrest.springrest.services.LoginService;
 
 @CrossOrigin
 @RestController
@@ -26,6 +28,8 @@ public class MyController {
 	
 	@Autowired
 	private CourseService courseSerivice;
+	@Autowired
+	private LoginService loginSerivice;
 
 	@GetMapping("/home")
 	public String home() {
@@ -45,15 +49,12 @@ public class MyController {
 	@GetMapping("/courses/{courseId}")
 	public Course getCourse(@PathVariable String courseId) {
 		return this.courseSerivice.getCourse(Long.parseLong(courseId));
-		
-		
 	}
 	
 	//Course add
 	
 	@PostMapping("/courses")
 	public Course addCourse(@RequestBody Course course) {
-		
 		return this.courseSerivice.addCourse(course);
 	}
 	
@@ -75,6 +76,21 @@ public class MyController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	
+	@PostMapping("/login")
+	public Login addLogin(@RequestBody Login login) {
+		return this.loginSerivice.addLogin(login);
+	}
+	
+	 @GetMapping("/login/{name}")
+	    public Login getLogin(@PathVariable String name) {
+	        return loginSerivice.getLogin(name);
+	    }
+	 
+	 
+	
+
 	
 
 	
